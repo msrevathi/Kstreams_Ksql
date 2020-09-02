@@ -1,0 +1,14 @@
+1.
+Error faced: Error: NOT_ENOUGH_REPLICAS
+configurations of Topic created initially :
+kafka-topics.bat --create --zookeeper localhost:2181 --topic bank-transaction-input-topic --partitions 1 --replication-factor 1
+Describe topic:
+Topic:bank-transaction-input-topic1	PartitionCount:1	ReplicationFactor:1	Configs:
+	Topic: bank-transaction-input-topic1	Partition: 0	Leader: 2	Replicas: 2	Isr: 2
+
+Currently it is possible to specify min.insync.replicas > than the replication.factor for a topic. By doing this, produce with acks=all fails with NotEnoughReplicaException after 3 attempts:
+(https://cwiki.apache.org/confluence/display/KAFKA/KIP-579%3A+new+exception+on+min.insync.replicas+%3E+replication.factor)
+Reason:
+min.insync.replicas: Default to 1. As the documentation mentions, a typical configuration is replication-factor minus 1, meaning with a replication factor of 3, min.insync.replicas should be 2. The problem with 1 is it puts you in a dangerous position, where the cluster accepts messages for which you only have 1 copy. On the other hand, a value equal to the replication factor means losing one node temporarily stops your cluster from accepting values until the missing partition has rebalanced to a healthy node.
+Sol: increased the replication factor
+kafka-topics.bat --create --zookeeper localhost:2181 --topic bank-transaction-input-topic --partitions 1 --replication-factor 3

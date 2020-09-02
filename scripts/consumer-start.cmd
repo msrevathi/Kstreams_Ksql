@@ -1,0 +1,8 @@
+rem kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic hello-producer-topic --from-beginning
+rem kafka-console-consumer.bat --bootstrap-server localhost:9092  --topic favourite-color-output-topic --from-beginning --property print.key=true --property print.value=true --formatter kafka.tools.DefaultMessageFormatter --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+rem kafka-console-consumer.bat --bootstrap-server localhost:9092  --topic bank-balance-out-topic --from-beginning --property print.key=true --property print.value=true  --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+rem kafka-console-consumer.bat --bootstrap-server localhost:9092  --topic bank-transaction-input-topic --from-beginning
+
+rem kafka-console-consumer.bat --bootstrap-server localhost:9092  --from-beginning --from-beginning --property print.key=true --property print.value=true  --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer --formatter kafka.tools.DefaultMessageFormatter  --topic "user-purchases-enriched-inner-join"
+
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic simple-invoice-output --from-beginning --property print.key=true --property print.value=true  --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer --formatter kafka.tools.DefaultMessageFormatter
